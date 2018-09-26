@@ -66,12 +66,14 @@ elif temperature_sensor == 1:
     if attic_enabled == True:
         attic_file = '/sys/bus/w1/devices/28-000008776471/w1_slave'
 
+#Type of weather that would qualify as "severe". Can be changed to users liking.
 severeweather = ['HUR','TOR','TOW','WRN','SEW','FLO','SVR','VOL','HWW']
 
 #Setting up sensors
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 
+#Send me notifications (NOTE: May not currently be working)
 def notify(message):
     if notifications_enabled == True:
 	if message == 0:
@@ -187,14 +189,15 @@ if debug_mode == True:
     print "Program starting"
 if error_checking == True:
     error_tries = 0
-first = True
-activealert = False
+first = True        #Program runs slightly different on the first loop
+alert = False
 reason = 0      #This is for the text on the web server
 
 
 #Main loop
 while True:
     now = datetime.datetime.now()
+    #Only update outside temperature every 5 minutes
     if ((now.minute % 5) == 0 and now.second == 0) or first == True:
         updated = datetime.datetime.now()
         if error_checking == True and first != True:
@@ -227,14 +230,14 @@ while True:
                 error_tries = 0
 
         if alerts in severeweather:
-            activealert = True
+            alert = True
             whiteled.blink(1,1)
             if debug_mode == True:
                 print "Found an alert: " + alerts
         else:
-            if activealert == True:
+            if alert == True:
                 whiteled.off()
-            activealert = False
+            alert = False
 
     inside = insidetemp()
     attic = attictemp()
@@ -249,9 +252,9 @@ while True:
     if debug_mode == True:
         print "Inside temperature(s) updated"
         print now.hour, now.minute, now.second
-    cold = False #(for sending the right notification)
+    cold = False #for sending the right notification, if enabled
     tempdiff = outside - inside
-    red = True
+    red = True       #initial variable setup
     first = False
 
 #If it's raining outside, you want your window closed
@@ -260,7 +263,7 @@ while True:
         reason = 2
 
 #If there's a severe weather alert, close your window
-    elif activealert == True:
+    elif alert == True:
         red = True
         reason = 3
 
@@ -322,7 +325,7 @@ while True:
         greenled.on()
         notified = False
 
-#Check every second to see if the window was opened or closed. Only update temperatures every 5 minutes
+#Check every second to see if the window was opened or closed. Only update inside temperatures every minute, and outside every 5.
     now = datetime.datetime.now()
     while (now.second != 0):
         if (windowbutton.is_pressed == False) and (window == 0):

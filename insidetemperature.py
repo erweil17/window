@@ -1,3 +1,5 @@
+#This program allows you to test the inside temperature sensor so you know if it's working or not.
+#It will output the temperature it reads from each sensor once every second.
 import os
 import time
  
@@ -5,7 +7,7 @@ os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
  
 base_dir = '/sys/bus/w1/devices/'
-device_file1 = base_dir + '/28-000008773a60/w1_slave'
+device_file1 = base_dir + '/28-000008773a60/w1_slave'      #Replace with temperature sensor serial number
 device_file2 = base_dir + '/28-000008776471/w1_slave'
  
 def read_temp_raw(file):

@@ -11,4 +11,4 @@ while True:
         led.on()
     else:
         led.off()
-    time.sleep(0.1)
+    time.sleep(0.1)    #limit how often the sensor is checked

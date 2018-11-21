@@ -152,7 +152,7 @@ def attictemp():
 #Writes information to the file, with one piece of data per line. The order in which everything is written from top to bottom is as follows:
 #updated month, day, hour, minute, inside temp, outside temp, attic temp, window open (T/F), predicted outside high, should you open or close (T/F), the reason to close, and the type of alert present
 def filewrite(month, day, hour, minute, inside, outside, attic, window, forecast, alert, red, reason):
-    file = open("/var/www/html/data.txt", "w")
+    file = open("data.txt", "w")
     file.write("%s\n" % month)
     file.write("%s\n" % day)
     file.write("%s\n" % hour)

@@ -16,20 +16,20 @@ from time import gmtime, strftime
 internet_enabled = True
 
 #Set to 0 if in Newberg, 1 if in Corvallis. For getting outside temperature
-location = 1
+location = 0
 
 #Set to true to enable the attic temperature
 attic_enabled = False
 
 #Set to true to keep track of any pre-coded record temperature. If you don't know what this is, set it to false
-record = True
+record = False
 
 #Use correct temperature sensor. Serial number with letters == 1. If you have no idea which one, guess until it works.
 #This option is for the inside sensor. Attic sensor will be opposite value, if enabled
-temperature_sensor = 1
+temperature_sensor = 0
 
 #Enable push notifications on your phone
-notifications_enabled = True
+notifications_enabled = False
 
 #Enable printing values to screen for debugging purposes
 debug_mode = False
@@ -57,7 +57,7 @@ whiteled.off()
 
 #Set up program based on preferences selected
 if location == 0:
-    url = 'http://api.wunderground.com/api/0a4ad92564829dc7/forecast/alerts/conditions/q/pws:KORNEWBE28.json'
+    url = 'http://api.wunderground.com/api/0a4ad92564829dc7/forecast/alerts/conditions/q/OR/Newberg.json'
 elif location == 1:
     url = 'http://api.wunderground.com/api/0a4ad92564829dc7/forecast/alerts/conditions/q/pws:KORCORVA13.json'
 if temperature_sensor == 0:
@@ -247,18 +247,18 @@ while True:
     if (inside == -100):
         inside = previousinside
 
-	if angled_window == True:
-		if bottomswitch.is_pressed == False and topswitch.is_pressed == False:
-			window = 1
-		elif bottomswitch.is_pressed == True and topswitch.is_pressed == False:
-			window = 2
-		else:
-			window = 0
-	else:
-		if bottomswitch.is_pressed == False:
-			window = 1
-		else:
-			window = 0
+    if angled_window == True:
+        if bottomswitch.is_pressed == False and topswitch.is_pressed == False:
+            window = 1
+        elif bottomswitch.is_pressed == True and topswitch.is_pressed == False:
+            window = 2
+        else:
+            window = 0
+    else:
+        if bottomswitch.is_pressed == False:
+            window = 1
+        else:
+            window = 0
 
     if record == True:
         record_filewrite(inside)

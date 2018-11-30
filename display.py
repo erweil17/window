@@ -1,3 +1,5 @@
+#Reads the file and outputs the temperaure to seven segment displays. Can display any integer value between -99 and 199.
+#Pinouts for the display can be found in the comment below
 import time, urllib2, json
 from gpiozero import Button, LED
 import RPi.GPIO as GPIO
@@ -5,7 +7,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-#segments = {'a':18, 'b':15, 'c':23, 'd':24, 'e':10, 'f':27, 'g':22}
+#segment:bcm_pin = {'a':18, 'b':15, 'c':23, 'd':24, 'e':10, 'f':27, 'g':22}
 digits = [9,11,25]
 for i in (9,10,11,15,18,22,23,24,25,27):
     GPIO.setup(i, GPIO.OUT)

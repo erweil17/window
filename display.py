@@ -25,7 +25,7 @@ eight = [18, 15, 23, 24, 10, 27, 22]
 nine = [18, 15, 23, 24, 27, 22]
 number = [zero, one, two, three, four, five, six, seven, eight, nine]
 
-data = '/var/www/html/data.txt'
+data = 'data.txt'
 def temp_from_file():
     try:
         f = open(data, 'r')

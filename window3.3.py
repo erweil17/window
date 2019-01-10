@@ -1,4 +1,4 @@
-#Pi Window Project v3.2.0 (WORKS AT HOME AND DORM)
+#Pi Window Project v3.3.1 (WORKS AT HOME AND DORM)
 #Made by Eric Weiler
 #This program gathers the inside and outside temperatures, compares them, and tells you if you should open your window or not.
 #All information is written to a file to be used by other programs. The order in which it is written is available in the filewrite function
@@ -13,7 +13,7 @@ from time import gmtime, strftime
 # ----Change the settings values, don't just comment them out ---
 
 #Set to 0 if in Newberg, 1 if in Corvallis. For getting outside temperature
-location = 0
+location = 1
 
 #Set to true to enable the attic temperature
 attic_enabled = False
@@ -23,7 +23,7 @@ record = False
 
 #Use correct temperature sensor. Serial number with letters == 1. If you have no idea which one, guess until it works.
 #This option is for the inside sensor. Attic sensor will be opposite value, if enabled
-temperature_sensor = 0
+temperature_sensor = 1
 
 #Enable push notifications on your phone
 notifications_enabled = False
@@ -32,7 +32,7 @@ notifications_enabled = False
 error_checking = True
 
 #Enable or disable the angled window. Some windows can be opened in 2 different ways. Only uses bottomswitch variable if false
-angled_window = False;
+angled_window = True;
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -318,7 +318,7 @@ while True:
                     notified = True
                 else:
                     redled.on()
-        elif (bottomswitch.is_pressed == True) and (window != 0):      #if closed
+        elif ((bottomswitch.is_pressed == True) and (angled_window == False) and window != 0) or (angled_window == True) and (bottomswitch.is_pressed == True) and (topswitch.is_pressed == True) and (window != 0):      #if closed
             window = 0
             filewrite(updated.month, updated.day, updated.hour, updated.minute, inside, outside, attic, window, outsidehigh, red, reason)
             if red == True:

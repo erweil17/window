@@ -40,10 +40,10 @@ redled.on()
 
 #Set up program based on preferences selected
 if location == 0:
-    url = 'http://api.openweathermap.org/data/2.5/weather?id=5742726&APPID=a3b7103af578dc35a235d70f396c20f1'
+    url = 'http://api.openweathermap.org/data/2.5/weather?id=5742726&APPID=<api_key>'
     highurl = 'https://api.weather.gov/gridpoints/PQR/100,96/forecast'
 elif location == 1:
-    url = 'http://api.openweathermap.org/data/2.5/weather?id=5720727&APPID=a3b7103af578dc35a235d70f396c20f1'
+    url = 'http://api.openweathermap.org/data/2.5/weather?id=5720727&APPID=<api_key>'
     highurl = 'https://api.weather.gov/gridpoints/PQR/83,62/forecast'
 if temperature_sensor == 0:
     temp_file = '/sys/bus/w1/devices/28-000008776471/w1_slave'
